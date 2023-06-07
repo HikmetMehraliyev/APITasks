@@ -23,6 +23,7 @@ public class BaseService<T> : IBaseService<T> where T : BaseEntity, new()
 	public void Create(T entity)
 	{
         _dbSet.Add(entity);
+		_context.SaveChanges();
 
 	}
 

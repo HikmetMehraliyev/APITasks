@@ -4,6 +4,7 @@ using ClassTaskAPI.Services.Implementations.Restaurant;
 using ClassTaskAPI.Services.Interfaces.ProductService;
 using ClassTaskAPI.Services.Interfaces.RestaurantService;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +12,13 @@ var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseSqlServer(connectionString));
 
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IProductService,.ProductService>();
+builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 
 var app = builder.Build();
